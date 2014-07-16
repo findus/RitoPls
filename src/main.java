@@ -12,6 +12,7 @@ public class main {
 
 
         Date date = new Date();
+        // wu t de fk ac is en deterbaes!?!?
         //RAFFile file = new RAFFile("Archive_1.raf");
         //file.repack("AkaliLoadScreen_1.DDS");
         //file.extractEverything();
