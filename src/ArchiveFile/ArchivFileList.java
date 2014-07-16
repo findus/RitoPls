@@ -11,14 +11,13 @@ import java.util.ArrayList;
  */
 public class ArchivFileList {
 
+    private ArrayList<ArchiveFile> archiveFiles = new ArrayList<ArchiveFile>();
+    
     public ArrayList<ArchiveFile> getArchiveFiles() {
         return archiveFiles;
     }
 
-    private ArrayList<ArchiveFile> archiveFiles = new ArrayList<ArchiveFile>();
-
-
-
+   
     public void readjustOffsets(ArchiveFile startArchiv)
     {
         ArchiveFile before = null;
