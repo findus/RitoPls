@@ -1,9 +1,6 @@
 package Releasemanifest;
 
 import LittleEndian.LeWord;
-import Util.ArrayUtils;
-
-import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -31,30 +28,30 @@ public class ReleasemanifestFileEntry {
     private String name;
     private ReleaseManifestDirectoryEntry directoryEntry;
 
-    public ReleasemanifestFileEntry(ReleasemanifestFile file,List<Byte> content, long offset,int fileIndex)
+    public ReleasemanifestFileEntry(ReleasemanifestFile file,byte[] content, long offset,int fileIndex)
     {
         this.relFile = file;
-        this.content = ArrayUtils.objectArrayToByteArray(content.toArray());
+        //this.content = ArrayUtils.objectArrayToByteArray(content.toArray());
         this.offsetEntry = offset;
         this.fileindex = fileIndex;
 
          //Raep
-        this.nameIndex = new LeWord(content, (int) offsetEntry).getContent();
+        this.nameIndex = new LeWord(content, (int) offsetEntry,4).getContent();
         this.name = relFile.getStringList().getStringList().get((int)nameIndex-1);
-        this.version = new LeWord(content,(int) offsetEntry+4).getContent();
+        this.version = new LeWord(content,(int) offsetEntry+4,4).getContent();
         this.checkSum = "Später Implementieren";
 
         this.checkArray = new long[4];
-        this.checkArray[0] = new LeWord(content,(int)offsetEntry + 8).getContent();
-        this.checkArray[1] = new LeWord(content,(int)offsetEntry + 12).getContent();
-        this.checkArray[2] = new LeWord(content,(int)offsetEntry + 16).getContent();
-        this.checkArray[3] = new LeWord(content,(int)offsetEntry + 20).getContent();
+        this.checkArray[0] = new LeWord(content,(int)offsetEntry + 8,4).getContent();
+        this.checkArray[1] = new LeWord(content,(int)offsetEntry + 12,4).getContent();
+        this.checkArray[2] = new LeWord(content,(int)offsetEntry + 16,4).getContent();
+        this.checkArray[3] = new LeWord(content,(int)offsetEntry + 20,4).getContent();
 
-        this.unKnkownData =   new LeWord(content,(int)offsetEntry + 24).getContent();
-        this.uncompressedFilesize =   new LeWord(content,(int)offsetEntry + 28).getContent();
-        this.compressedFilesize =   new LeWord(content,(int)offsetEntry + 32).getContent();
-        this.unknownData2 =   new LeWord(content,(int)offsetEntry + 34).getContent();
-        this.unknownData3 =   new LeWord(content,(int)offsetEntry + 38).getContent();
+        this.unKnkownData =   new LeWord(content,(int)offsetEntry + 24,4).getContent();
+        this.uncompressedFilesize =   new LeWord(content,(int)offsetEntry + 28,4).getContent();
+        this.compressedFilesize =   new LeWord(content,(int)offsetEntry + 32,4).getContent();
+        this.unknownData2 =   new LeWord(content,(int)offsetEntry + 34,4).getContent();
+        this.unknownData3 =   new LeWord(content,(int)offsetEntry + 38,4).getContent();
     }
 
     public String getPathAndName()

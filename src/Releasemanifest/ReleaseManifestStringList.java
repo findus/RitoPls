@@ -21,13 +21,13 @@ public class ReleaseManifestStringList {
     private long sizeOfData;
     private List<String> stringList = new ArrayList<String>();
 
-    public ReleaseManifestStringList(ReleasemanifestFile file, List<Byte> content,long offset)
+    public ReleaseManifestStringList(ReleasemanifestFile file,byte[] content,long offset)
     {
         this.relFile = file;
         //UWOTM8
-        this.content =  ArrayUtils.objectArrayToByteArray(content.toArray());
-        this.stringCount = new LeWord(content,(int)offset).getContent();
-        this.sizeOfData = new LeWord(content,(int)offset+4).getContent();
+        this.content = content;
+        this.stringCount = new LeWord(content,(int)offset,4).getContent();
+        this.sizeOfData = new LeWord(content,(int)offset+4,4).getContent();
 
         byte[] stringBytes = Arrays.copyOfRange(this.content,(int)offset+8,(int)offset+8+(int)sizeOfData);
         String allStrigns = ArrayUtils.encodeByteArrayToString(stringBytes);

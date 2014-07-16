@@ -4,8 +4,9 @@ import LittleEndian.LeWord;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -20,7 +21,7 @@ public class ReleasemanifestFile {
     private LeWord version;
     private LeWord fileType;
     private LeWord numberItems;
-    private List<Byte> filebyteList = new ArrayList<Byte>();
+    private byte[] filebyteList;
     private LeWord direcotryCunt;
 
     private ReleaseManifestStringList stringList;
@@ -35,21 +36,17 @@ public class ReleasemanifestFile {
         FileInputStream reader = new FileInputStream(releasemanifestFile);
         byte[] sanic = new byte[1];
         int offset = 0;
-        while (reader.read(sanic, 0, 1) != -1) {
-            //wordList.add(new LeWord((sanic)));
-            filebyteList.add(sanic[0]);
-            offset += 1;
-        }
+        filebyteList = Files.readAllBytes(Paths.get(releasemanifestFile));
 
-        this.magic = new LeWord(filebyteList,0);
-        this.fileType = new LeWord(filebyteList,4);
-        this.numberItems = new LeWord(filebyteList,8);
-        this.version = new LeWord(filebyteList,12);
-        this.direcotryCunt = new LeWord(filebyteList,16);
+        this.magic = new LeWord(filebyteList,0,4);
+        this.fileType = new LeWord(filebyteList,4,4);
+        this.numberItems = new LeWord(filebyteList,8,4);
+        this.version = new LeWord(filebyteList,12,4);
+        this.direcotryCunt = new LeWord(filebyteList,16,4);
 
 
         long fileheaderlocation = 16 + 4 + (this.direcotryCunt.getContent()*20);
-        LeWord fileCount = new LeWord(filebyteList,(int)fileheaderlocation);
+        LeWord fileCount = new LeWord(filebyteList,(int)fileheaderlocation,4);
         long stringheaderlocation = fileheaderlocation +4 + (fileCount.getContent()*44);
 
         this.stringList = new ReleaseManifestStringList(this,filebyteList,stringheaderlocation);
