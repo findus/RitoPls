@@ -34,7 +34,7 @@ public class ReleaseManifestDirectoryList {
             currentOffset < offsetEntryStart +20*this.direcoryListCount;currentOffset += 20)
         {
             this.directoryEntries.add(new ReleaseManifestDirectoryEntry(relFile,filebyteList,currentOffset,entrynum++));
-            System.out.println(this.directoryEntries.size());
+            //System.out.println(this.directoryEntries.size());
         }
 
 

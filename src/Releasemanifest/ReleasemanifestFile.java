@@ -65,7 +65,7 @@ public class ReleasemanifestFile {
     }
 
     public static void main(String[] args) throws IOException {
-        new ReleasemanifestFile("releasemanifest");
+        ReleasemanifestFile lol = new ReleasemanifestFile("releasemanifest");
     }
 
 }
