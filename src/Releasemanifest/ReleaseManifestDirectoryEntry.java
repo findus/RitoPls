@@ -1,7 +1,6 @@
 package Releasemanifest;
 
 import LittleEndian.LeWord;
-import Util.ArrayUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,17 +23,17 @@ public class ReleaseManifestDirectoryEntry {
     private List<ReleasemanifestFileEntry> relFileEntry;
     private int entryNum;
 
-    public ReleaseManifestDirectoryEntry(ReleasemanifestFile relFile,List<Byte> content, long offset, int entryNum)
+    public ReleaseManifestDirectoryEntry(ReleasemanifestFile relFile,byte[] content, long offset, int entryNum)
     {
         this.relFile = relFile;
         this.entryNum = entryNum;
-        this.directoryFileContent = ArrayUtils.objectArrayToByteArray(content.toArray());
+        this.directoryFileContent =content;
         this.offsetEntry = offset;
-        this.nameIndex = new LeWord(content,(int)offsetEntry).getContent();
-        this.subDirFirstIndex = new LeWord(content,(int)offsetEntry+4).getContent();
-        this.subDirCount = new LeWord(content,(int)offsetEntry+8).getContent();
-        this.fileStartOffset = new LeWord(content,(int) offset +12).getContent();
-        this.fileCount = new LeWord(content,(int)offsetEntry+16).getContent();
+        this.nameIndex = new LeWord(content,(int)offsetEntry,4).getContent();
+        this.subDirFirstIndex = new LeWord(content,(int)offsetEntry+4,4).getContent();
+        this.subDirCount = new LeWord(content,(int)offsetEntry+8,4).getContent();
+        this.fileStartOffset = new LeWord(content,(int) offset +12,4).getContent();
+        this.fileCount = new LeWord(content,(int)offsetEntry+16,4).getContent();
 
         if(nameIndex == 0)
             this.name = "";

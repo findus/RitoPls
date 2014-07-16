@@ -31,7 +31,7 @@ public class ReleasemanifestFileEntry {
     public ReleasemanifestFileEntry(ReleasemanifestFile file,byte[] content, long offset,int fileIndex)
     {
         this.relFile = file;
-        //this.content = ArrayUtils.objectArrayToByteArray(content.toArray());
+        this.content = content;
         this.offsetEntry = offset;
         this.fileindex = fileIndex;
 
@@ -39,7 +39,7 @@ public class ReleasemanifestFileEntry {
         this.nameIndex = new LeWord(content, (int) offsetEntry,4).getContent();
         this.name = relFile.getStringList().getStringList().get((int)nameIndex-1);
         this.version = new LeWord(content,(int) offsetEntry+4,4).getContent();
-        this.checkSum = "Später Implementieren";
+        this.checkSum = new LeWord(content,(int) offsetEntry+4,16).getString();
 
         this.checkArray = new long[4];
         this.checkArray[0] = new LeWord(content,(int)offsetEntry + 8,4).getContent();

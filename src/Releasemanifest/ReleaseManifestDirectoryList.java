@@ -1,7 +1,6 @@
 package Releasemanifest;
 
 import LittleEndian.LeWord;
-import Util.ArrayUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,11 +20,11 @@ public class ReleaseManifestDirectoryList {
     private  List<ReleaseManifestDirectoryEntry> directoryEntries;
     private ReleasemanifestFile relFile;
 
-    public ReleaseManifestDirectoryList(ReleasemanifestFile releasemanifestFile, List<Byte> filebyteList, long fileheaderlocation) {
+    public ReleaseManifestDirectoryList(ReleasemanifestFile releasemanifestFile,byte[] filebyteList, long fileheaderlocation) {
          this.relFile = releasemanifestFile;
-        this.content = ArrayUtils.objectArrayToByteArray(filebyteList.toArray());
+        this.content = filebyteList;
         this.offsetDirectoryList = fileheaderlocation;
-        this.direcoryListCount = new LeWord(filebyteList,(int)this.offsetDirectoryList).getContent();
+        this.direcoryListCount = new LeWord(filebyteList,(int)this.offsetDirectoryList,4).getContent();
 
         long offsetEntryStart = offsetDirectoryList+4;
         this.directoryEntries = new ArrayList<ReleaseManifestDirectoryEntry>();

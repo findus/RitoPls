@@ -3,7 +3,6 @@ package LittleEndian; /**
  * Settings | File Templates.
  */
 
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -22,8 +21,25 @@ public class LeWord {
         rawContent = new byte[]{filebyteList.get(offset),filebyteList.get(offset+1),filebyteList.get(offset+2),filebyteList.get(offset+3)};
     }
 
+    public LeWord(byte word[], int offset, int len)
+    {
+        rawContent = new byte[len];
+        int counter = 0;
+        for(int i = offset; i < offset + len ; i++)
+        {
+            rawContent[counter] = word[i];
+            counter++;
+        }
+    }
+
     public long getContent() {
         return byteArrayToLong(rawContent,0,4);
+    }
+
+    @Deprecated
+    public String getString()
+    {
+        return new String(rawContent);
     }
 
     public byte[] getRawContent() { return rawContent;}
@@ -53,6 +69,8 @@ public class LeWord {
 
         return retVal;
     }
+
+
 
     public static void main(String[]args)
     {
