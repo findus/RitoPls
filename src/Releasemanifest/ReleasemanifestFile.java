@@ -55,11 +55,6 @@ public class ReleasemanifestFile {
         this.stringList = new ReleaseManifestStringList(this,filebyteList,stringheaderlocation);
         this.fileList = new ReleasemanifestFileList(this,filebyteList,stringheaderlocation);
         this.dirList = new ReleaseManifestDirectoryList(this,filebyteList,fileheaderlocation);
-
-
-
-
-
     }
 
     public ReleaseManifestStringList getStringList() {

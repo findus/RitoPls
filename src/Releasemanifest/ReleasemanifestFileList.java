@@ -32,9 +32,11 @@ public class ReleasemanifestFileList {
         long offsetEntiresStart = offset + 4;
         this.fileentrylist = new ArrayList<ReleasemanifestFileEntry>();
         int entryIndexCounter = 0;
-        for(long currentOffset = offsetEntiresStart; currentOffset < offsetEntiresStart + 20 * fileListCount; currentOffset+= 20)
+
+        for(long currentOffset = offsetEntiresStart; currentOffset < offsetEntiresStart + 44 * fileListCount; currentOffset+= 44)
         {
-            this.fileentrylist.add(new ReleasemanifestFileEntry(relFile,this.content,currentOffset,entryIndexCounter++));
+            this.fileentrylist.add(new ReleasemanifestFileEntry(relFile,content,currentOffset,entryIndexCounter++));
+
         }
 
 

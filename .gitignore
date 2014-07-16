@@ -22,3 +22,17 @@ bin/RAF/RAFFile$RafThread.class
 bin/RAF/RAFFile.class
 bin/RAF/RAFFileList.class
 mb5vvpfc.1mx.txt
+bin/RafProcessing/ArchiveFile/ArchiveFile.class
+bin/RafProcessing/ArchiveFile/ArchivFileList.class
+bin/RafProcessing/FileEntry/FileEntry.class
+bin/RafProcessing/FileEntry/FileEntryList.class
+bin/RafProcessing/PathEntry/PathEntry.class
+bin/RafProcessing/PathEntry/PathEntryList.class
+bin/RafProcessing/RAF/RAFFile$ListCounter.class
+bin/RafProcessing/RAF/RAFFile$RafThread.class
+bin/RafProcessing/RAF/RAFFile.class
+bin/RafProcessing/RAF/RAFFileList.class
+bin/
+releasemanifest
+uzxnl5sz.4qf.txt
+raftest.iml
