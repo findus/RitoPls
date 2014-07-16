@@ -33,7 +33,8 @@ public class ReleaseManifestDirectoryEntry {
         this.nameIndex = new LeWord(content,(int)offsetEntry).getContent();
         this.subDirFirstIndex = new LeWord(content,(int)offsetEntry+4).getContent();
         this.subDirCount = new LeWord(content,(int)offsetEntry+8).getContent();
-        this.fileCount = new LeWord(content,(int)offsetEntry+12).getContent();
+        this.fileStartOffset = new LeWord(content,(int) offset +12).getContent();
+        this.fileCount = new LeWord(content,(int)offsetEntry+16).getContent();
 
         if(nameIndex == 0)
             this.name = "";

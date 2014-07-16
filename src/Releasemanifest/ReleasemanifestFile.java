@@ -53,8 +53,9 @@ public class ReleasemanifestFile {
         long stringheaderlocation = fileheaderlocation +4 + (fileCount.getContent()*44);
 
         this.stringList = new ReleaseManifestStringList(this,filebyteList,stringheaderlocation);
-        this.fileList = new ReleasemanifestFileList(this,filebyteList,stringheaderlocation);
-        this.dirList = new ReleaseManifestDirectoryList(this,filebyteList,fileheaderlocation);
+        this.dirList = new ReleaseManifestDirectoryList(this,filebyteList,16);
+        this.fileList = new ReleasemanifestFileList(this,filebyteList,fileheaderlocation);
+
     }
 
     public ReleaseManifestStringList getStringList() {
