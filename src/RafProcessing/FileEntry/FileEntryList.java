@@ -1,4 +1,4 @@
-package FileEntry;
+package RafProcessing.FileEntry;
 
 import LittleEndian.LeWord;
 

@@ -1,6 +1,6 @@
-package RAF;
+package RafProcessing.RAF;
 
-import ArchiveFile.ArchiveFile;
+import RafProcessing.ArchiveFile.ArchiveFile;
 
 import java.io.File;
 import java.io.FileNotFoundException;

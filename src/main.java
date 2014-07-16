@@ -1,5 +1,5 @@
-import RAF.RAFFile;
-import RAF.RAFFileList;
+import RafProcessing.RAF.RAFFile;
+import RafProcessing.RAF.RAFFileList;
 
 import java.io.IOException;
 import java.util.Date;
@@ -17,11 +17,10 @@ public class main {
         //file.repack("AkaliLoadScreen_1.DDS");
         //file.extractEverything();
 
-        RAFFileList list = new RAFFileList("C:\\Riot Games\\League of Legends\\");
+        RAFFileList list = new RAFFileList("C:\\Users\\philipp.hentschel\\Documents\\Java\\Workspace\\raftest\\");
         RAFFile e = list.findRessource("LuxLoadScreen.dds");
         e.repack("LuxLoadScreen.dds");
-        //e.extractSingleFile("Tryndamere.inibin");
-       // e.extractEverything();
+        e.extractEverything();
         Date date2 = new Date();
 
         long diff = date2.getTime() - date.getTime();

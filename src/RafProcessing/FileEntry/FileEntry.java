@@ -1,4 +1,4 @@
-package FileEntry; /**
+package RafProcessing.FileEntry; /**
  * Created with IntelliJ IDEA. User: philipp.hentschel Date: 03.07.14 Time: 11:02 To change this template use File |
  * Settings | File Templates.
  */

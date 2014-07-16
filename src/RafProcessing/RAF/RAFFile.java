@@ -1,11 +1,11 @@
-package RAF;
+package RafProcessing.RAF;
 
 
-import ArchiveFile.ArchivFileList;
-import ArchiveFile.ArchiveFile;
-import FileEntry.FileEntryList;
+import RafProcessing.ArchiveFile.ArchivFileList;
+import RafProcessing.ArchiveFile.ArchiveFile;
+import RafProcessing.FileEntry.FileEntryList;
 import LittleEndian.LeWord;
-import PathEntry.PathEntryList;
+import RafProcessing.PathEntry.PathEntryList;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -134,8 +134,8 @@ public class RAFFile {
     //TODO Neu machen
     public void extractSingleFile(String input) throws IOException {
 
-        for (int i = 0; i < archiveFiles.getArchiveFiles().size(); i++) {
-            if (archiveFiles.getArchiveFiles().get(i).getFilePath().contains(input)) {
+        for (int i = 0; i < fileList.getLength(); i++) {
+            if (pathList.getPathList().get((int) fileList.getFileList().get(i).getPathListIndex().getContent()).getPath().contains(input)) {
                 extractFile(i);
             }
         }

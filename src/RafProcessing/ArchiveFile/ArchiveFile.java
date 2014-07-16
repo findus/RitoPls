@@ -1,8 +1,8 @@
-package ArchiveFile;
+package RafProcessing.ArchiveFile;
 
 import LittleEndian.LeWord;
-import PathEntry.PathEntryList;
-import FileEntry.FileEntry;
+import RafProcessing.PathEntry.PathEntryList;
+import RafProcessing.FileEntry.FileEntry;
 
 
 /**
@@ -76,9 +76,6 @@ public class ArchiveFile implements Comparable<ArchiveFile> {
         this.length.setContent(data.length);
 
     }
-
-
-
 
     @Override
     public int compareTo(ArchiveFile o) {

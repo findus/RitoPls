@@ -3,6 +3,9 @@ package LittleEndian; /**
  * Settings | File Templates.
  */
 
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Little Endian Word ( ͡° ͜ʖ ͡°), grundlegendse Dateneinheit in dem Filearchiv, die in die Entsprechenden Listen einsortiert werden muss
  */
@@ -12,6 +15,11 @@ public class LeWord {
 
     public LeWord(byte word[]) {
         this.rawContent = word.clone();
+    }
+
+    public LeWord(List<Byte> filebyteList,int offset)
+    {
+        rawContent = new byte[]{filebyteList.get(offset),filebyteList.get(offset+1),filebyteList.get(offset+2),filebyteList.get(offset+3)};
     }
 
     public long getContent() {
