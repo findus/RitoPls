@@ -3,8 +3,6 @@ package Releasemanifest;
 import LittleEndian.LeWord;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +22,8 @@ public class ReleasemanifestFile {
     private LeWord numberItems;
     private List<Byte> filebyteList = new ArrayList<Byte>();
     private LeWord direcotryCunt;
+
+
 
     private ReleaseManifestStringList stringList;
 
@@ -57,6 +57,10 @@ public class ReleasemanifestFile {
 
 
 
+    }
+
+    public ReleaseManifestStringList getStringList() {
+        return stringList;
     }
 
     public void createHeader()

@@ -1,11 +1,11 @@
 package Releasemanifest;
 
 import LittleEndian.LeWord;
+import Util.ArrayUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import Util.ArrayUtils;
 
 /**
  * Created with IntelliJ IDEA.
@@ -32,6 +32,11 @@ public class ReleaseManifestStringList {
         byte[] stringBytes = Arrays.copyOfRange(this.content,(int)offset+8,(int)offset+8+(int)sizeOfData);
         String allStrigns = ArrayUtils.encodeByteArrayToString(stringBytes);
         ArrayUtils.addArrayToList(stringList,allStrigns.split("\0"));
+    }
+
+
+    public List<String> getStringList() {
+        return stringList;
     }
 
 

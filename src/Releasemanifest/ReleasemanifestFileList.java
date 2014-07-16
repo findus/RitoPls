@@ -3,6 +3,7 @@ package Releasemanifest;
 import LittleEndian.LeWord;
 import Util.ArrayUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,6 +28,14 @@ public class ReleasemanifestFileList {
         this.offset = offset;
 
         this.fileListCount = new LeWord(content,(int)offset).getContent();
+
+        long offsetEntiresStart = offset + 4;
+        this.fileentrylist = new ArrayList<ReleasemanifestFileEntry>();
+        int entryIndexCounter = 0;
+        for(long currentOffset = offsetEntiresStart; currentOffset < offsetEntiresStart + 20 * fileListCount; currentOffset+= 20)
+        {
+            this.fileentrylist.add(new ReleasemanifestFileEntry(relFile,this.content,currentOffset,entryIndexCounter++));
+        }
 
 
 
