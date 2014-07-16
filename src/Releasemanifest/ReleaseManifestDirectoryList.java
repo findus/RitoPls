@@ -24,16 +24,18 @@ public class ReleaseManifestDirectoryList {
     public ReleaseManifestDirectoryList(ReleasemanifestFile releasemanifestFile, List<Byte> filebyteList, long fileheaderlocation) {
          this.relFile = releasemanifestFile;
         this.content = ArrayUtils.objectArrayToByteArray(filebyteList.toArray());
-        this.offsetDirectoryList = offsetDirectoryList;
-        this.direcoryListCount = new LeWord(filebyteList,4).getContent();
+        this.offsetDirectoryList = fileheaderlocation;
+        this.direcoryListCount = new LeWord(filebyteList,(int)this.offsetDirectoryList).getContent();
 
         long offsetEntryStart = offsetDirectoryList+4;
         this.directoryEntries = new ArrayList<ReleaseManifestDirectoryEntry>();
         int entrynum = 0;
 
-        for(long currentOffset = offsetEntryStart; currentOffset < offsetEntryStart +20*this.direcoryListCount;currentOffset += 20)
+        for(long currentOffset = offsetEntryStart;
+            currentOffset < offsetEntryStart +20*this.direcoryListCount;currentOffset += 20)
         {
             this.directoryEntries.add(new ReleaseManifestDirectoryEntry(relFile,filebyteList,currentOffset,entrynum++));
+            System.out.println(this.directoryEntries.size());
         }
 
 
