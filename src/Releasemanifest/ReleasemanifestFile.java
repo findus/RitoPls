@@ -23,9 +23,9 @@ public class ReleasemanifestFile {
     private List<Byte> filebyteList = new ArrayList<Byte>();
     private LeWord direcotryCunt;
 
-
-
     private ReleaseManifestStringList stringList;
+    private ReleaseManifestDirectoryList dirList;
+    private ReleasemanifestFileList fileList;
 
 
 
@@ -53,6 +53,9 @@ public class ReleasemanifestFile {
         long stringheaderlocation = fileheaderlocation +4 + (fileCount.getContent()*44);
 
         this.stringList = new ReleaseManifestStringList(this,filebyteList,stringheaderlocation);
+        this.fileList = new ReleasemanifestFileList(this,filebyteList,stringheaderlocation);
+        this.dirList = new ReleaseManifestDirectoryList(this,filebyteList,fileheaderlocation);
+
 
 
 

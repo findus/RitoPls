@@ -1,5 +1,7 @@
 package Releasemanifest;
 
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: philipp.hentschel
@@ -8,4 +10,7 @@ package Releasemanifest;
  * To change this template use File | Settings | File Templates.
  */
 public class ReleaseManifestDirectoryList {
+    public ReleaseManifestDirectoryList(ReleasemanifestFile releasemanifestFile, List<Byte> filebyteList, long fileheaderlocation) {
+
+    }
 }
