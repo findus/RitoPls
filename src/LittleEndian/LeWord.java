@@ -3,6 +3,8 @@ package LittleEndian; /**
  * Settings | File Templates.
  */
 
+import Util.ArrayUtils;
+
 import java.util.List;
 
 /**
@@ -60,7 +62,7 @@ public class LeWord {
     public byte[] getRawContent() { return rawContent;}
 
     public void setContent(long content) {
-        this.rawContent = longToByteArray(content);
+        this.rawContent = ArrayUtils.longToByteArray(content);
     }
 
     private long byteArrayToLong(byte[] array, int start, int laenge) {
@@ -74,16 +76,6 @@ public class LeWord {
         return value;
     }
 
-    private byte[] longToByteArray(long input)
-    {
-        byte[] retVal = new byte[4];
-        retVal[0] = (byte)(input & 0xFF);
-        retVal[1] = (byte)((input >> 8) & 0xFF);
-        retVal[2] = (byte)((input >> 16) & 0xFF);
-        retVal[3] = (byte)((input >> 24) & 0xFF);
-
-        return retVal;
-    }
 
 
 

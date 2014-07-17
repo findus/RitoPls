@@ -77,6 +77,16 @@ public class ReleasemanifestFileList {
         return result;
     }
 
+    public List<Long> getLongArray()
+    {
+        List<Long> result = new ArrayList<Long>();
+        for(ReleasemanifestFileEntry entry : fileentrylist)
+        {
+            result.addAll(entry.getLongArray());
+        }
+        return result;
+    }
+
 
 
 

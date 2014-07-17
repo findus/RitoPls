@@ -31,7 +31,6 @@ public class RAFFile {
 
     private String rafArchiv;
 
-
     private FileEntryList fileList;
 
     private PathEntryList pathList;

@@ -37,4 +37,26 @@ public class ArrayUtils {
             list.add(val);
         }
     }
+
+    public static byte[] longToByteArray(long input)
+    {
+        byte[] retVal = new byte[4];
+        retVal[0] = (byte)(input & 0xFF);
+        retVal[1] = (byte)((input >> 8) & 0xFF);
+        retVal[2] = (byte)((input >> 16) & 0xFF);
+        retVal[3] = (byte)((input >> 24) & 0xFF);
+
+        return retVal;
+    }
+
+    public static void insertArrayInAnotherArray(byte[] zielArray, byte[] input, int position, int laenge)
+    {
+        int counter = 0;
+        for(int i = position; i < position+laenge;i++)
+        {
+            zielArray[i] = input[counter];
+            counter++;
+        }
+    }
+
 }

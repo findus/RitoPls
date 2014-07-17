@@ -36,7 +36,15 @@ public class ReleaseManifestDirectoryList {
             this.directoryEntries.add(new ReleaseManifestDirectoryEntry(relFile,filebyteList,currentOffset,entrynum++));
             //System.out.println(this.directoryEntries.size());
         }
+    }
 
-
+    public List<Long> getLongArray()
+    {
+        List<Long> result = new ArrayList<Long>();
+        for(ReleaseManifestDirectoryEntry entry : directoryEntries)
+        {
+            result.addAll(entry.getLongArray());
+        }
+        return result;
     }
 }

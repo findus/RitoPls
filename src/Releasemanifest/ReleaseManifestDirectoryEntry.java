@@ -43,8 +43,6 @@ public class ReleaseManifestDirectoryEntry {
         relFileEntry = new ArrayList<ReleasemanifestFileEntry>();
     }
 
-
-
     public String getFullPath() {
         if(this.relDirecttoryEntry!= null)
         {
@@ -52,5 +50,16 @@ public class ReleaseManifestDirectoryEntry {
 
         }
         return name;
+    }
+
+    public List<Long> getLongArray()
+    {
+        List<Long> result = new ArrayList<Long>();
+        result.add(nameIndex);
+        result.add(subDirFirstIndex);
+        result.add(subDirCount);
+        result.add(fileStartOffset);
+        result.add(fileCount);
+        return result;
     }
 }

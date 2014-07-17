@@ -2,6 +2,9 @@ package Releasemanifest;
 
 import LittleEndian.LeWord;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: philipp.hentschel
@@ -85,5 +88,22 @@ public class ReleasemanifestFileEntry {
             path = this.directoryEntry.getFullPath();
         }
         return path + "/"+ name;
+    }
+
+    public List<Long> getLongArray()
+    {
+        List<Long> result = new ArrayList<Long>();
+        result.add(nameIndex);
+        result.add(version);
+        result.add(checkArray[0].getContent());
+        result.add(checkArray[1].getContent());
+        result.add(checkArray[2].getContent());
+        result.add(checkArray[3].getContent());
+        result.add(unKnkownData);
+        result.add(uncompressedFilesize);
+        result.add(compressedFilesize);
+        result.add(unknownData2);
+        result.add(unknownData3);
+        return result;
     }
 }

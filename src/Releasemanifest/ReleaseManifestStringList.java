@@ -41,9 +41,25 @@ public class ReleaseManifestStringList {
 
 
 
-    public void getBytes()
+
+    public byte[] getBytes()
     {
-        //TODO REINCOEDN
+       List<Long> result = new ArrayList<Long>();
+        result.add(stringCount);
+        result.add(sizeOfData);
+        int sd4 = (int)sizeOfData/4;
+        byte[] resultOutput = new byte[(result.size()*4)+(int)sizeOfData];
+        for(int i = 0; i < result.size();i++)
+        {
+           byte[] temp = ArrayUtils.longToByteArray(result.get(i));
+           ArrayUtils.insertArrayInAnotherArray(resultOutput,temp,i*4,4);
+        }
+
+        String[] temp = stringList.toArray(new String[stringList.size()]);
+        String fullString ="\0"+String.join("\0",temp)+"\0";
+        byte[] stringBytes =  fullString.getBytes();
+        ArrayUtils.insertArrayInAnotherArray(resultOutput,stringBytes,result.size()*4,4);
+        return resultOutput;
     }
 
 

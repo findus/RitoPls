@@ -1,16 +1,16 @@
 package Releasemanifest;
 
 import LittleEndian.LeWord;
-import com.sun.xml.internal.messaging.saaj.util.ByteInputStream;
+import Util.ArrayUtils;
 import com.sun.xml.internal.messaging.saaj.util.ByteOutputStream;
 
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.zip.DeflaterInputStream;
 import java.util.zip.DeflaterOutputStream;
 
 /**
@@ -101,6 +101,35 @@ public class ReleasemanifestFile {
         return true;
     }
 
+
+    public void saveFile(String filename) throws IOException {
+        FileOutputStream stream = new FileOutputStream(filename);
+        stream.write(getBytes());
+        stream.close();
+    }
+
+    private byte[] getBytes()
+    {
+        List<Long> result = new ArrayList<Long>();
+        result.add(magic.getContent());
+        result.add(fileType.getContent());
+        result.add(numberItems.getContent());
+        result.add(version.getContent());
+
+        result.addAll(dirList.getLongArray());
+        result.addAll(fileList.getLongArray());
+        byte[] stringBytes = stringList.getBytes();
+
+        byte[] resultOutput = new byte[(result.size()*4)+stringBytes.length];
+        for(int i = 0; i < result.size(); i++)
+        {
+            byte[] temp = ArrayUtils.longToByteArray(result.get(i));
+            ArrayUtils.insertArrayInAnotherArray(resultOutput,temp,i*4,4);
+        }
+        ArrayUtils.insertArrayInAnotherArray(resultOutput,stringBytes,result.size()*4,4);
+        return resultOutput;
+
+    }
 
     public ReleaseManifestStringList getStringList() {
         return stringList;

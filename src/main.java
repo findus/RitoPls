@@ -1,7 +1,8 @@
-import RafProcessing.RAF.RAFFile;
-import RafProcessing.RAF.RAFFileList;
+import Releasemanifest.ReleasemanifestFile;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Date;
 
 /**
@@ -17,10 +18,15 @@ public class main {
         //file.repack("AkaliLoadScreen_1.DDS");
         //file.extractEverything();
 
-        RAFFileList list = new RAFFileList("C:\\Users\\philipp.hentschel\\Documents\\Java\\Workspace\\raftest\\");
-        RAFFile e = list.findRessource("LuxLoadScreen.dds");
-        e.repack("LuxLoadScreen.dds");
-        e.extractEverything();
+
+        //e.repack("LuxLoadScreen.dds");
+        //e.extractEverything();
+
+        ReleasemanifestFile file = new ReleasemanifestFile("releasemanifest");
+       byte[] testbytearray = Files.readAllBytes(Paths.get("Archive_1.raf"));
+        file.adjustSizeByBytes(testbytearray,"Archive_1.raf");
+        file.saveFile("testmanifest");
+
         Date date2 = new Date();
 
         long diff = date2.getTime() - date.getTime();
