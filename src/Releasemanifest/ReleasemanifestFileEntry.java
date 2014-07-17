@@ -17,14 +17,36 @@ public class ReleasemanifestFileEntry {
     private long nameIndex;
     private long version;
     private String checkSum;
-    private long[] checkArray;
+    private LeWord[] checkArray;
 
     private long unKnkownData;
     private long uncompressedFilesize;
+
+    public long getCompressedFilesize() {
+        return compressedFilesize;
+    }
+
+    public long getUncompressedFilesize() {
+        return uncompressedFilesize;
+    }
+
+    public void setCompressedFilesize(long compressedFilesize) {
+        this.compressedFilesize = compressedFilesize;
+    }
+
+    public void setUncompressedFilesize(long uncompressedFilesize) {
+        this.uncompressedFilesize = uncompressedFilesize;
+    }
+
     private long compressedFilesize;
     private long unknownData2;
     private long unknownData3;
     private int fileindex;
+
+    public String getName() {
+        return name;
+    }
+
     private String name;
     private ReleaseManifestDirectoryEntry directoryEntry;
 
@@ -36,22 +58,23 @@ public class ReleasemanifestFileEntry {
         this.fileindex = fileIndex;
 
          //Raep
-        this.nameIndex = new LeWord(content, (int) offsetEntry,4).getContent();
+        this.nameIndex = new LeWord(content, (int) offsetEntry).getContent();
         this.name = relFile.getStringList().getStringList().get((int)nameIndex-1);
-        this.version = new LeWord(content,(int) offsetEntry+4,4).getContent();
-        this.checkSum = new LeWord(content,(int) offsetEntry+4,16).getString();
+        this.version = new LeWord(content,(int) offsetEntry+4).getContent();
+        //this.checkSum = new LeWord(content,(int) offsetEntry+8,16).getString();
 
-        this.checkArray = new long[4];
-        this.checkArray[0] = new LeWord(content,(int)offsetEntry + 8,4).getContent();
-        this.checkArray[1] = new LeWord(content,(int)offsetEntry + 12,4).getContent();
-        this.checkArray[2] = new LeWord(content,(int)offsetEntry + 16,4).getContent();
-        this.checkArray[3] = new LeWord(content,(int)offsetEntry + 20,4).getContent();
+        this.checkArray = new LeWord[4];
+        this.checkArray[0] = new LeWord(content,(int)offsetEntry + 8);
+        this.checkArray[1] = new LeWord(content,(int)offsetEntry + 12);
+        this.checkArray[2] = new LeWord(content,(int)offsetEntry + 16);
+        this.checkArray[3] = new LeWord(content,(int)offsetEntry + 20);
+        this.checkSum = this.checkArray[0].getHexString() + this.checkArray[1].getHexString() + this.checkArray[2].getHexString() + this.checkArray[3].getHexString();
 
-        this.unKnkownData =   new LeWord(content,(int)offsetEntry + 24,4).getContent();
-        this.uncompressedFilesize =   new LeWord(content,(int)offsetEntry + 28,4).getContent();
-        this.compressedFilesize =   new LeWord(content,(int)offsetEntry + 32,4).getContent();
-        this.unknownData2 =   new LeWord(content,(int)offsetEntry + 34,4).getContent();
-        this.unknownData3 =   new LeWord(content,(int)offsetEntry + 38,4).getContent();
+        this.unKnkownData =   new LeWord(content,(int)offsetEntry + 24).getContent();
+        this.uncompressedFilesize =   new LeWord(content,(int)offsetEntry + 28).getContent();
+        this.compressedFilesize =   new LeWord(content,(int)offsetEntry + 32).getContent();
+        this.unknownData2 =   new LeWord(content,(int)offsetEntry + 34).getContent();
+        this.unknownData3 =   new LeWord(content,(int)offsetEntry + 38).getContent();
     }
 
     public String getPathAndName()

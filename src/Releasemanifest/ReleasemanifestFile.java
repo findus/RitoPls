@@ -1,12 +1,17 @@
 package Releasemanifest;
 
 import LittleEndian.LeWord;
+import com.sun.xml.internal.messaging.saaj.util.ByteInputStream;
+import com.sun.xml.internal.messaging.saaj.util.ByteOutputStream;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.zip.DeflaterInputStream;
+import java.util.zip.DeflaterOutputStream;
 
 /**
  * Created with IntelliJ IDEA.
@@ -38,22 +43,64 @@ public class ReleasemanifestFile {
         int offset = 0;
         filebyteList = Files.readAllBytes(Paths.get(releasemanifestFile));
 
-        this.magic = new LeWord(filebyteList,0,4);
-        this.fileType = new LeWord(filebyteList,4,4);
-        this.numberItems = new LeWord(filebyteList,8,4);
-        this.version = new LeWord(filebyteList,12,4);
-        this.direcotryCunt = new LeWord(filebyteList,16,4);
+        this.magic = new LeWord(filebyteList,0);
+        this.fileType = new LeWord(filebyteList,4);
+        this.numberItems = new LeWord(filebyteList,8);
+        this.version = new LeWord(filebyteList,12);
+        this.direcotryCunt = new LeWord(filebyteList,16);
 
 
         long fileheaderlocation = 16 + 4 + (this.direcotryCunt.getContent()*20);
-        LeWord fileCount = new LeWord(filebyteList,(int)fileheaderlocation,4);
+        LeWord fileCount = new LeWord(filebyteList,(int)fileheaderlocation);
         long stringheaderlocation = fileheaderlocation +4 + (fileCount.getContent()*44);
 
         this.stringList = new ReleaseManifestStringList(this,filebyteList,stringheaderlocation);
         this.dirList = new ReleaseManifestDirectoryList(this,filebyteList,16);
         this.fileList = new ReleasemanifestFileList(this,filebyteList,fileheaderlocation);
+        System.out.println("Fertig");
+    }
+
+    public boolean adjustSizeByFile(String fileName,String rafFile) throws IOException {
+        return adjustSizeByBytes(Files.readAllBytes(Paths.get(fileName)),rafFile);
+    }
+
+    public boolean adjustSizeByBytes(byte[] content,String rafFile) throws IOException {
+        int uncompressedsize = content.length;
+        ByteOutputStream byteStream = new ByteOutputStream();
+        DeflaterOutputStream compressStream = new DeflaterOutputStream(byteStream);
+        compressStream.write(content,0,content.length);
+        compressStream.close();
+        int compressedsize = byteStream.size();
+        return adjstSizeByLocation(rafFile,uncompressedsize,compressedsize);
 
     }
+
+    public boolean adjstSizeByLocation(String rafLocationName,int uncompressedsize,int compressedsize)
+    {
+        List<ReleasemanifestFileEntry> entries = fileList.searchFileEntrys(rafLocationName,true);
+        if(entries.size() > 0)
+        {
+            ReleasemanifestFileEntry entry = entries.get(0);
+            return adjustSize(entry,uncompressedsize,compressedsize);
+        }
+        return false;
+    }
+
+    public boolean adjustSize(ReleasemanifestFileEntry entry, int uncompressedsize, int compressedsize)
+    {
+        if (entry.getUncompressedFilesize() == entry.getCompressedFilesize())
+        {
+            entry.setUncompressedFilesize(uncompressedsize);
+            entry.setCompressedFilesize(uncompressedsize);
+        }
+        else
+        {
+            entry.setUncompressedFilesize(uncompressedsize);
+            entry.setCompressedFilesize(compressedsize);
+        }
+        return true;
+    }
+
 
     public ReleaseManifestStringList getStringList() {
         return stringList;

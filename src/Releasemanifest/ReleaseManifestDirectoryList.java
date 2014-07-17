@@ -24,7 +24,7 @@ public class ReleaseManifestDirectoryList {
          this.relFile = releasemanifestFile;
         this.content = filebyteList;
         this.offsetDirectoryList = fileheaderlocation;
-        this.direcoryListCount = new LeWord(filebyteList,(int)this.offsetDirectoryList,4).getContent();
+        this.direcoryListCount = new LeWord(filebyteList,(int)this.offsetDirectoryList).getContent();
 
         long offsetEntryStart = offsetDirectoryList+4;
         this.directoryEntries = new ArrayList<ReleaseManifestDirectoryEntry>();

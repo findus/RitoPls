@@ -26,8 +26,8 @@ public class ReleaseManifestStringList {
         this.relFile = file;
         //UWOTM8
         this.content = content;
-        this.stringCount = new LeWord(content,(int)offset,4).getContent();
-        this.sizeOfData = new LeWord(content,(int)offset+4,4).getContent();
+        this.stringCount = new LeWord(content,(int)offset).getContent();
+        this.sizeOfData = new LeWord(content,(int)offset+4).getContent();
 
         byte[] stringBytes = Arrays.copyOfRange(this.content,(int)offset+8,(int)offset+8+(int)sizeOfData);
         String allStrigns = ArrayUtils.encodeByteArrayToString(stringBytes);

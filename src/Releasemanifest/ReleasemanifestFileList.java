@@ -26,7 +26,7 @@ public class ReleasemanifestFileList {
         this.content = content;
         this.offset = offset;
 
-        this.fileListCount = new LeWord(content,(int)offset,4).getContent();
+        this.fileListCount = new LeWord(content,(int)offset).getContent();
 
         long offsetEntiresStart = offset + 4;
         this.fileentrylist = new ArrayList<ReleasemanifestFileEntry>();
@@ -35,11 +35,46 @@ public class ReleasemanifestFileList {
         for(long currentOffset = offsetEntiresStart; currentOffset < offsetEntiresStart + 44 * fileListCount; currentOffset+= 44)
         {
             this.fileentrylist.add(new ReleasemanifestFileEntry(relFile,content,currentOffset,entryIndexCounter++));
+        }
+    }
 
+    //IN userem Fall true
+    public List<ReleasemanifestFileEntry> searchFileEntrys(String partialPath,boolean strict)
+    {
+        String lowerPath = partialPath.toLowerCase();
+        List<ReleasemanifestFileEntry> result = new ArrayList<ReleasemanifestFileEntry>();
+        List<ReleasemanifestFileEntry> fileEntryList = new ArrayList<ReleasemanifestFileEntry>();
+        List<Integer> foundIndexes = new ArrayList<Integer>();
+
+        for (int i = 0; i < fileEntryList.size(); i++)
+        {
+            String lowerFilename = fileEntryList.get(i).getName().toLowerCase();
+            if (lowerFilename.endsWith(lowerPath))
+            {
+                if (!strict || lowerFilename == lowerPath)
+                {
+                    result.add(fileEntryList.get(i));
+                    foundIndexes.add(i);
+                }
+            }
         }
 
+        for(int i = 0 ; i < fileEntryList.size();i++)
+        {
+            String lowerFileNaem =  fileEntryList.get(i).getPathAndName().toLowerCase();
+            if(lowerFileNaem.endsWith(lowerPath))
+            {
+                if(!strict || lowerFileNaem == lowerPath || lowerFileNaem == ("/" + lowerPath))
+                {
+                    if(!foundIndexes.contains(i))
+                    {
+                        result.add(fileEntryList.get(i));
+                    }
+                }
+            }
+        }
 
-
+        return result;
     }
 
 

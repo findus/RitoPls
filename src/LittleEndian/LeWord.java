@@ -21,11 +21,11 @@ public class LeWord {
         rawContent = new byte[]{filebyteList.get(offset),filebyteList.get(offset+1),filebyteList.get(offset+2),filebyteList.get(offset+3)};
     }
 
-    public LeWord(byte word[], int offset, int len)
+    public LeWord(byte word[], int offset)
     {
-        rawContent = new byte[len];
+        rawContent = new byte[4];
         int counter = 0;
-        for(int i = offset; i < offset + len ; i++)
+        for(int i = offset; i < offset + 4 ; i++)
         {
             rawContent[counter] = word[i];
             counter++;
@@ -36,10 +36,25 @@ public class LeWord {
         return byteArrayToLong(rawContent,0,4);
     }
 
-    @Deprecated
     public String getString()
     {
-        return new String(rawContent);
+        StringBuffer strb = new StringBuffer();
+        for (int i = 0; i < 4 ; i++) {
+            strb.append((char) ((int) (rawContent[i]) & 0xFF));
+        }
+        return strb.toString();
+    }
+
+    public String getHexString()
+    {
+        char[] hexArray = "0123456789ABCDEF".toCharArray();
+        char[] hexChars = new char[rawContent.length * 2];
+        for ( int j = 0; j < rawContent.length; j++ ) {
+            int v = rawContent[j] & 0xFF;
+            hexChars[j * 2] = hexArray[v >>> 4];
+            hexChars[j * 2 + 1] = hexArray[v & 0x0F];
+        }
+        return new String(hexChars);
     }
 
     public byte[] getRawContent() { return rawContent;}
