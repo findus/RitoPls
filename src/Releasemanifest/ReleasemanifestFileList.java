@@ -1,9 +1,11 @@
 package Releasemanifest;
 
 import LittleEndian.LeWord;
+import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 /**
  * Created with IntelliJ IDEA.
@@ -19,6 +21,7 @@ public class ReleasemanifestFileList {
     long fileListCount;
     private long offset;
     private List<ReleasemanifestFileEntry> fileentrylist;
+    Logger logger = Logger.getRootLogger();
 
     public ReleasemanifestFileList(ReleasemanifestFile file,byte[] content,long offset)
     {
@@ -43,12 +46,14 @@ public class ReleasemanifestFileList {
     {
         String lowerPath = partialPath.toLowerCase();
         List<ReleasemanifestFileEntry> result = new ArrayList<ReleasemanifestFileEntry>();
-        List<ReleasemanifestFileEntry> fileEntryList = new ArrayList<ReleasemanifestFileEntry>();
+        List<ReleasemanifestFileEntry> fileEntryList = this.fileentrylist;
         List<Integer> foundIndexes = new ArrayList<Integer>();
 
         for (int i = 0; i < fileEntryList.size(); i++)
         {
             String lowerFilename = fileEntryList.get(i).getName().toLowerCase();
+            logger.info(lowerFilename);
+
             if (lowerFilename.endsWith(lowerPath))
             {
                 if (!strict || lowerFilename == lowerPath)
